@@ -12,7 +12,9 @@ export class Server{
   initializeDB():mongoose.MongooseThenable {
     (<any>mongoose).Promise = global.Promise
     let opt = {
-          useMongoClient:true,
+//          useMongoClient:true,
+          useUnifiedTopology:true,
+          useNewUrlParser:true,
           ssl:true
         }
     return mongoose.connect(environment.db.url,opt)
