@@ -9,7 +9,7 @@
     "start":"npm run serve",
     "serve": "node dist/main.js",
     "watch-node":"nodemon dist/main.js",
-    "watch-ts": "tsc -w",
+    "watch-ts": "tsc -w"
   },
   "engines":{
     "node": "12.11.1"
