@@ -4,7 +4,7 @@ import {User} from './users.model'
 
 class UsersRouter extends ModelRouter<User>{
   constructor(){
-      super(User)
+      super(null)
       this.on('beforeRender', document=>{
         document.password=undefined
       })
