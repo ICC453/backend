@@ -1,10 +1,10 @@
 import {ModelRouter} from '../common/model-router'
 import * as restify from 'restify'
-import {ViewerEvent} from './viewerevents.model'
+import {Event} from './events.model'
 
-export class ViewerEventsRouter extends ModelRouter<ViewerEvent>{
+export class EventsRouter extends ModelRouter<Event>{
   constructor(){
-      super(ViewerEvent)
+      super(Event)
   }
   applyRoutes(application:restify.Server){
     application.get('/events',this.findAll)
@@ -16,4 +16,4 @@ export class ViewerEventsRouter extends ModelRouter<ViewerEvent>{
   }
 }
 
-export const viewerEventsRouter:ViewerEventsRouter = new ViewerEventsRouter()
+export const eventsRouter:EventsRouter = new EventsRouter()
