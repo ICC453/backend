@@ -12,7 +12,8 @@
     "watch-ts": "tsc -w"
   },
   "engines":{
-    "node": "12.11.1"
+    "node": "12.11.1",
+    "tsc":"2.6.2"
   },
   "keywords": [],
   "author": "",
