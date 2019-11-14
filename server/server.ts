@@ -9,8 +9,8 @@ export class Server{
   application: restify.Server
   connection: mongoose.Connection
 
-  initializeDB():mongoose.MongooseThenable {
-    (<any>mongoose).Promise = global.Promise
+  initializeDB() {
+  //  (<any>mongoose).Promise = global.Promise
     let opt = {
 //          useMongoClient:true,
           useUnifiedTopology:true,
