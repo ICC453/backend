@@ -4,7 +4,7 @@ import {Event} from './events.model'
 
 export class EventsRouter extends ModelRouter<Event>{
   constructor(){
-      super(Event)
+      super(null)
   }
   applyRoutes(application:restify.Server){
     application.get('/events',this.findAll)
