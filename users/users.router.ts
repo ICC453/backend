@@ -1,10 +1,12 @@
 import {ModelRouter} from '../common/model-router'
 import * as restify from 'restify'
 import {User} from './users.model'
+import {authenticate} from '../security/auth.handler'
+import {authorize} from '../security/authz.handler'
 
 class UsersRouter extends ModelRouter<User>{
   constructor(){
-      super(null)
+      super(User)
       this.on('beforeRender', document=>{
         document.password=undefined
       })
@@ -24,15 +26,17 @@ class UsersRouter extends ModelRouter<User>{
 //    application.get({path:'/users',version:'2.0.0'},[this.findByEmail,this.findAll])
 //    application.get({path:'/users',version:'1.0.0'},this.findAll)
     application.get('/users',restify.plugins.conditionalHandler([
-                                        {version:'1.0.0',handler:this.findAll},
-                                        {version:'2.0.0', handler:[this.findByEmail,this.findAll]}]
+                                        {version:'1.0.0',handler:[authorize('admin'),this.findAll]},
+                                        {version:'2.0.0', handler:[authorize('admin'),this.findByEmail,this.findAll]}]
                                       ))
 
-    application.get('/users/:id',[this.validateId,this.findById])
-    application.post('/users',this.save)
-    application.put('/users/:id',[this.validateId, this.replace])
-    application.patch('/users/:id',[this.validateId, this.update])
-    application.del('/users/:id',[this.validateId,this.delete])
+    application.get('/users/:id',[authorize('admin','user'),this.validateId,this.findById])
+    application.post('/users',[authorize('admin'),this.save])
+    application.put('/users/:id',[authorize('admin'),this.validateId, this.replace])
+    application.patch('/users/:id',[authorize('admin'),this.validateId, this.update])
+    application.del('/users/:id',[authorize('admin'),this.validateId,this.delete])
+
+    application.post('/users/authenticate',authenticate)
   }
 }
 
